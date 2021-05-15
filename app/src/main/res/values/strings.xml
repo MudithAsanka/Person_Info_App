@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Person Info App</string>
+    
+    <string-array name="divisions">
+        <item>Ampegama</item>
+        <item>Jaya Uyana</item>
+        <item>Narangahahena</item>
+        <item>Atakalanwatta</item>
+        <item>Panasala Pedesa</item>
+        <item>Maswila</item>
+        <item>Hamingala Galahenkanda</item>
+        <item>Puwakgahahena</item>
+        <item>Hamingala</item>
+        <item>Galahenkanda</item>
+        <item>Uramalahena</item>
+        <item>Kirala Kekulama</item>
+        <item>Mahawatta</item>
+        <item>Gurusinhagoda</item>
+        <item>Paranawatta</item>
+        <item>Kankanamgoda</item>
+        <item>Ulkatuhena</item>
+        <item>Boralukada</item>
+    </string-array>
 </resources>
