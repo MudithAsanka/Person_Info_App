@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/person_hno_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="274 House No"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/person_name_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ama Peries"
+                android:textSize="15sp"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="@+id/person_hno_txt"
+                app:layout_constraintTop_toBottomOf="@+id/person_hno_txt" />
+
+            <TextView
+                android:id="@+id/person_nic_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="463600333V"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/person_name_txt"
+                app:layout_constraintTop_toBottomOf="@+id/person_name_txt" />
+
+            <TextView
+                android:id="@+id/person_division_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Galahinkanda"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/person_nic_txt"
+                app:layout_constraintTop_toBottomOf="@+id/person_nic_txt" />
+
+            <TextView
+                android:id="@+id/person_gender_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
+

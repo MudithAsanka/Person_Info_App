@@ -1,8 +1,11 @@
 package dev.mudithasanka.personinfoapp;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -42,4 +45,34 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+
+    void addPerson(String division, String hno, String name, String nic, String gender){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_DIVISION, division);
+        cv.put(COLUMN_HNO, hno);
+        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_NIC, nic);
+        cv.put(COLUMN_GENDER, gender);
+        long result = db.insert(TABLE_NAME, null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //Read Data for Recycleview -start
+    Cursor readAllData(){
+        String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor curser = null;
+        if(db != null){
+            curser = db.rawQuery(query, null);
+        }
+        return curser;
+    }
+
 }
