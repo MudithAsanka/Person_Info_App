@@ -1,9 +1,11 @@
 package dev.mudithasanka.personinfoapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     Context context;
     ArrayList person_id, person_division, person_hno, person_name, person_nic, person_gender;
+
     CustomAdapter(Context context, ArrayList person_id, ArrayList person_division, ArrayList person_hno,
                   ArrayList person_name, ArrayList person_nic, ArrayList person_gender){
         this.context = context;
@@ -34,12 +37,26 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+
         holder.person_division_txt.setText(String.valueOf(person_division.get(position)));
         holder.person_hno_txt.setText(String.valueOf(person_hno.get(position)));
         holder.person_name_txt.setText(String.valueOf(person_name.get(position)));
         holder.person_nic_txt.setText(String.valueOf(person_nic.get(position)));
         holder.person_gender_txt.setText(String.valueOf(person_gender.get(position)));
+        holder.mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UpdatePerson.class);
+                intent.putExtra("id", String.valueOf(person_id.get(position)));
+                intent.putExtra("division", String.valueOf(person_division.get(position)));
+                intent.putExtra("hno", String.valueOf(person_hno.get(position)));
+                intent.putExtra("name", String.valueOf(person_name.get(position)));
+                intent.putExtra("nic", String.valueOf(person_nic.get(position)));
+                intent.putExtra("gender", String.valueOf(person_gender.get(position)));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -50,6 +67,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView person_division_txt, person_hno_txt, person_name_txt, person_nic_txt, person_gender_txt;
+        LinearLayout mainLayout;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             person_division_txt = itemView.findViewById(R.id.person_division_txt);
@@ -57,6 +76,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             person_name_txt = itemView.findViewById(R.id.person_name_txt);
             person_nic_txt = itemView.findViewById(R.id.person_nic_txt);
             person_gender_txt = itemView.findViewById(R.id.person_gender_txt);
+            mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
 }
