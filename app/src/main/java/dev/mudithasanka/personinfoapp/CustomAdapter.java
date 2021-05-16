@@ -1,5 +1,6 @@
 package dev.mudithasanka.personinfoapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -16,10 +17,12 @@ import java.util.ArrayList;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
     Context context;
+    Activity activity;      //for refresh card view after update
     ArrayList person_id, person_division, person_hno, person_name, person_nic, person_gender;
 
-    CustomAdapter(Context context, ArrayList person_id, ArrayList person_division, ArrayList person_hno,
+    CustomAdapter(Activity activity, Context context, ArrayList person_id, ArrayList person_division, ArrayList person_hno,
                   ArrayList person_name, ArrayList person_nic, ArrayList person_gender){
+        this.activity = activity;
         this.context = context;
         this.person_id = person_id;
         this.person_division = person_division;
@@ -54,7 +57,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 intent.putExtra("name", String.valueOf(person_name.get(position)));
                 intent.putExtra("nic", String.valueOf(person_nic.get(position)));
                 intent.putExtra("gender", String.valueOf(person_gender.get(position)));
-                context.startActivity(intent);
+                activity.startActivityForResult(intent,1);
             }
         });
     }

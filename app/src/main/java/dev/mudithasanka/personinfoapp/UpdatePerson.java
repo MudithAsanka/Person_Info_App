@@ -2,6 +2,7 @@ package dev.mudithasanka.personinfoapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,21 +37,46 @@ public class UpdatePerson extends AppCompatActivity {
         updatePersonSpinner.setAdapter(updatePersonAdapter);
         //Dropdown division list -end
 
-        spinnerUpdatePerson = findViewById(R.id.spinnerUpdatePerson);
+        //spinnerUpdatePerson = findViewById(R.id.spinnerUpdatePerson);
         hno_input = findViewById(R.id.hno_inputUpdate);
         name_input = findViewById(R.id.name_inputUpdate);
         nic_input = findViewById(R.id.nic_inputUpdate);
         radioGroup = findViewById(R.id.radioGroupUpdate);
         update_button = findViewById(R.id.update_button);
 
+        //First we call this
+        getAndSetIntentData();
+
         update_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                int radioId = radioGroup.getCheckedRadioButtonId();
+                radioButton = findViewById(radioId);
+
+                if (radioId != -1) {
+
+                    MyDatabaseHelper myDB = new MyDatabaseHelper(UpdatePerson.this);
+                    //and only then we call this
+                    myDB.updateData(id,
+                            updatePersonSpinner.getSelectedItem().toString().trim(),
+                            hno_input.getText().toString().trim(),
+                            name_input.getText().toString().trim(),
+                            nic_input.getText().toString().trim(),
+                            radioButton.getText().toString().trim());
+
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Select Gender";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
 
-        getAndSetIntentData();
+
     }
 
     void getAndSetIntentData(){
