@@ -64,15 +64,31 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Read Data for Recycleview -start
-    Cursor readAllData(){
-        String query = "SELECT * FROM " + TABLE_NAME;
-        SQLiteDatabase db = this.getReadableDatabase();
+    Cursor readAllData(String filter_division){
+        System.out.println("ddddddddddddddddddddddddddddddddddddd "+filter_division);
+        if (filter_division.equals("All")){
+            //String query = "SELECT * FROM " + TABLE_NAME;
+            String query = "SELECT * FROM person ";
+            SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor curser = null;
-        if(db != null){
-            curser = db.rawQuery(query, null);
+            Cursor curser = null;
+            if(db != null){
+                curser = db.rawQuery(query, null);
+            }
+            return curser;
+
+        }else{
+            //String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_DIVISION + filter_division;
+            String query = "SELECT * FROM person where person_division='"+filter_division+"' ";
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor curser = null;
+            if(db != null){
+                curser = db.rawQuery(query, null);
+            }
+            return curser;
         }
-        return curser;
+
     }
 
     void updateData(String row_id, String division, String hno, String name, String nic, String gender){

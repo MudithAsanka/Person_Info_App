@@ -3,6 +3,8 @@ package dev.mudithasanka.personinfoapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +15,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
     Context context;
     Activity activity;      //for refresh card view after update
     ArrayList person_id, person_division, person_hno, person_name, person_nic, person_gender;
+
+    //ArrayList sid, sdivision, shno, sname, snic, sgender;
+
+    //ArrayList fid, fdivision, fhno, fname, fnic, fgender;
+    //private ArrayList<> source;
+
+    //private Timer timer;
 
     CustomAdapter(Activity activity, Context context, ArrayList person_id, ArrayList person_division, ArrayList person_hno,
                   ArrayList person_name, ArrayList person_nic, ArrayList person_gender){
@@ -82,4 +94,51 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
+
+    /*
+    private void searchPerson(final String searchKeyword){
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if(searchKeyword.trim().isEmpty()){
+                    sid = person_id;
+                    sdivision = person_division;
+                    shno = person_hno;
+                    sname = person_name;
+                    snic = person_nic;
+                    sgender = person_gender;
+                    Toast.makeText(context,sname, Toast.LENGTH_SHORT).show();
+                }else{
+                    for(int i=0; i<=getItemCount(); i++){
+                        if(sname.toString().toLowerCase().contains(searchKeyword.toLowerCase())
+                        || snic.toString().toLowerCase().contains(searchKeyword.toLowerCase())) {
+                            sid = person_id;
+                            sdivision = person_division;
+                            shno = person_hno;
+                            sname = person_name;
+                            snic = person_nic;
+                            sgender = person_gender;
+                        }
+                    }
+
+                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        }, 500);
+    }
+
+
+    public void cancelTimer(){
+        if(timer != null){
+            timer.cancel();
+        }
+    }
+
+    */
 }

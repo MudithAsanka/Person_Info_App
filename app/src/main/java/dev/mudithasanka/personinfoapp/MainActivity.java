@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,17 +21,45 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    Spinner filterDivisionSpinner;
     RecyclerView recyclerView;
     FloatingActionButton add_button;
 
     MyDatabaseHelper myDB;
     ArrayList<String> person_id, person_hno, person_division, person_name, person_nic, person_gender;
     CustomAdapter customAdapter;
+    String selectCity="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Dropdown division list -start
+        filterDivisionSpinner = (Spinner) findViewById(R.id.spinnerDivisionFilter);
+
+        ArrayAdapter<String> filterDivisionAdapter = new ArrayAdapter<String>(MainActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.filterDivisions));
+        filterDivisionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterDivisionSpinner.setAdapter(filterDivisionAdapter);
+        //Dropdown division list -end
+
+        filterDivisionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String fDivision = filterDivisionSpinner.getSelectedItem().toString();
+                selectCity=fDivision;
+                Toast.makeText(getApplicationContext(), fDivision, Toast.LENGTH_LONG).show();
+                storeDataInArrays(fDivision);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+
+        });
+
 
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.add_button);
@@ -47,12 +79,10 @@ public class MainActivity extends AppCompatActivity {
         person_nic = new ArrayList<>();
         person_gender = new ArrayList<>();
 
-        storeDataInArrays();
+        storeDataInArrays("All");
 
-        customAdapter = new CustomAdapter(MainActivity.this, this, person_id, person_division, person_hno,
-                person_name, person_nic, person_gender);
-        recyclerView.setAdapter(customAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+
 
     }
 
@@ -65,12 +95,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Store Data in Arrays -start
-    void storeDataInArrays(){
-        Cursor cursor = myDB.readAllData();
+    void storeDataInArrays(String fdD){
+
+        person_id.clear();
+        person_division.clear();
+        person_gender.clear();
+
+        person_hno.clear();
+        person_name.clear();
+        person_nic.clear();
+
+        Cursor cursor = myDB.readAllData(fdD);
         if(cursor.getCount() == 0){
             Toast.makeText(this,"No Data.", Toast.LENGTH_SHORT).show();
+            recyclerView.setAdapter(null);
+            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         }else {
             while (cursor.moveToNext()){
+                //System.out.println("rrrrrrrrrrrrrrrrrrr " +cursor.getString(1));
                 person_id.add(cursor.getString(0));
                 person_division.add(cursor.getString(1));
                 person_hno.add(cursor.getString(2));
@@ -78,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
                 person_nic.add(cursor.getString(4));
                 person_gender.add(cursor.getString(5));
             }
+
+            customAdapter = new CustomAdapter(MainActivity.this, this, person_id, person_division, person_hno,
+                    person_name, person_nic, person_gender);
+            recyclerView.setAdapter(customAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         }
     }
     //Store Data in Arrays -end
