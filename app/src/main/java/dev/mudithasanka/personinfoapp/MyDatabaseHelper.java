@@ -64,10 +64,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Read Data for Recycleview -start
-    Cursor readAllData(String filter_division){
-        System.out.println("ddddddddddddddddddddddddddddddddddddd "+filter_division);
-        if (filter_division.equals("All")){
+    Cursor readAllData(String search_text, String filter_division){
+        //System.out.println(search_text+filter_division);
+        if (filter_division.equals("All") && search_text.equals("")){
             //String query = "SELECT * FROM " + TABLE_NAME;
+
             String query = "SELECT * FROM person ";
             SQLiteDatabase db = this.getReadableDatabase();
 
@@ -77,9 +78,21 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             }
             return curser;
 
-        }else{
+        }else if(filter_division.equals("All") && !(search_text.equals(""))){
             //String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_DIVISION + filter_division;
-            String query = "SELECT * FROM person where person_division='"+filter_division+"' ";
+            //System.out.println("All and not null");
+            String query = "SELECT * FROM person where person_name LIKE '%"+search_text+"%' OR person_nic LIKE '%"+search_text+"%'";
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor curser = null;
+            if(db != null){
+                curser = db.rawQuery(query, null);
+            }
+            return curser;
+        }else {
+            //System.out.println("ELSE");
+            //System.out.println("All and not null");
+            String query = "SELECT * FROM person where person_division='"+filter_division+"' AND (person_name LIKE '%"+search_text+"%' OR person_nic LIKE '%"+search_text+"%')";
             SQLiteDatabase db = this.getReadableDatabase();
 
             Cursor curser = null;

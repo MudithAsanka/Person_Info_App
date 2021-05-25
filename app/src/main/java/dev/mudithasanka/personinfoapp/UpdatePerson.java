@@ -21,6 +21,7 @@ public class UpdatePerson extends AppCompatActivity {
     EditText hno_input, name_input, nic_input;
     RadioGroup radioGroup;
     RadioButton radioButton;
+    RadioButton radioFemaleUp, radioMaleUp;
     Button update_button, delete_button;
 
     String id, division, hno, name, nic, gender;
@@ -44,8 +45,24 @@ public class UpdatePerson extends AppCompatActivity {
         name_input = findViewById(R.id.name_inputUpdate);
         nic_input = findViewById(R.id.nic_inputUpdate);
         radioGroup = findViewById(R.id.radioGroupUpdate);
+        radioFemaleUp = findViewById(R.id.radio_femaleUpdate);
+        radioMaleUp = findViewById(R.id.radio_maleUpdate);
         update_button = findViewById(R.id.update_button);
         delete_button = findViewById(R.id.delete_button);
+
+        //set division on spinner - start
+        division = getIntent().getStringExtra("division");
+        int spinnerPosition = updatePersonAdapter.getPosition(division);
+        updatePersonSpinner.setSelection(spinnerPosition);
+        //set division on spinner - end
+
+        gender = getIntent().getStringExtra("gender");
+        //Toast.makeText(getApplicationContext(), gender, Toast.LENGTH_LONG).show();
+        if(gender.equals("Female")){
+            radioGroup.check(R.id.radio_femaleUpdate);
+        }else {
+            radioGroup.check(R.id.radio_maleUpdate);
+        }
 
         //First we call this
         getAndSetIntentData();
@@ -101,6 +118,7 @@ public class UpdatePerson extends AppCompatActivity {
             gender = getIntent().getStringExtra("gender");
 
             //Setting Intent Data
+
             hno_input.setText(hno);
             name_input.setText(name);
             nic_input.setText(nic);

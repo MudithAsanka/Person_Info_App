@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Person Info App</string>
+    <string name="app_name">Person Info</string>
 
     <string-array name="divisions">
         <item>Ampegama</item>
