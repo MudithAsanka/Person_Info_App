@@ -81,7 +81,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }else if(filter_division.equals("All") && !(search_text.equals(""))){
             //String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_DIVISION + filter_division;
             //System.out.println("All and not null");
-            String query = "SELECT * FROM person where person_name LIKE '%"+search_text+"%' OR person_nic LIKE '%"+search_text+"%'";
+            String query = "SELECT * FROM person where person_hno LIKE '%"+search_text+"%' OR person_name LIKE '%"+search_text+"%' OR person_nic LIKE '%"+search_text+"%'";
             SQLiteDatabase db = this.getReadableDatabase();
 
             Cursor curser = null;
@@ -92,7 +92,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }else {
             //System.out.println("ELSE");
             //System.out.println("All and not null");
-            String query = "SELECT * FROM person where person_division='"+filter_division+"' AND (person_name LIKE '%"+search_text+"%' OR person_nic LIKE '%"+search_text+"%')";
+            String query = "SELECT * FROM person where person_division='"+filter_division+"' AND (person_hno LIKE '%"+search_text+"%' OR person_name LIKE '%"+search_text+"%' OR person_nic LIKE '%"+search_text+"%')";
             SQLiteDatabase db = this.getReadableDatabase();
 
             Cursor curser = null;

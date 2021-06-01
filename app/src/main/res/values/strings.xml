@@ -2,11 +2,13 @@
     <string name="app_name">Person Info</string>
 
     <string-array name="divisions">
-        <item>Ampegama</item>
+        <item>Ampegama Kotasa 1</item>
+        <item>Ampegama Kotasa 2</item>
         <item>Jaya Uyana</item>
         <item>Narangahahena</item>
         <item>Atakalanwatta</item>
-        <item>Panasala Pedesa</item>
+        <item>Panasala Pedesa 1</item>
+        <item>Panasala Pedesa 2</item>
         <item>Maswila</item>
         <item>Hamingala Galahenkanda</item>
         <item>Puwakgahahena</item>
@@ -24,11 +26,13 @@
 
     <string-array name="filterDivisions">
         <item>All</item>
-        <item>Ampegama</item>
+        <item>Ampegama Kotasa 1</item>
+        <item>Ampegama Kotasa 2</item>
         <item>Jaya Uyana</item>
         <item>Narangahahena</item>
         <item>Atakalanwatta</item>
-        <item>Panasala Pedesa</item>
+        <item>Panasala Pedesa 1</item>
+        <item>Panasala Pedesa 2</item>
         <item>Maswila</item>
         <item>Hamingala Galahenkanda</item>
         <item>Puwakgahahena</item>
